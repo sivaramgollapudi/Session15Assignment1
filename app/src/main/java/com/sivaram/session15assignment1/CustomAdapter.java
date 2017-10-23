@@ -10,42 +10,57 @@ import android.widget.TextView;
  * Created by User on 23/10/2017.
  */
 
-public class CustomAdapter extends RecyclerView.Adapter<> {
+// Custom Adapter Class Extends from Recycler View Adapter And Holds Customer Adapter ViewHolder Class
+public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.ViewHolder> {
 
+    // Item Data Object Collection.
     private ItemData[] itemData;
 
+    // Create Constructor which will assign data to ItemData Variable.
     public CustomAdapter(ItemData[] itemData) {
         this.itemData = itemData;
     }
 
+    // Override OnCreateView Holder Method which will assign the Layout to Recycler View.
     @Override
-    public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
 
-        View itemLayout = LayoutInflater.from(parent.getContext()).inflate(R.layout.version_row,null);
+        // Inflate Layout to display number of rows based on the available data in Item Data Collection.
+        View itemLayout = LayoutInflater.from(parent.getContext()).inflate(R.layout.version_row,null,false);
 
+        // Set The Layout to ViewHolder
         ViewHolder viewHolder = new ViewHolder(itemLayout);
-        return null;
+
+        // return view holder.
+        return viewHolder;
     }
 
     @Override
-    public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
+    public void onBindViewHolder(ViewHolder holder, int position) {
 
+        // On Bind View Holder set Android Version Name text to TextView.
+        holder.nameTextView.setText(itemData[position].getAndroidVersionName());
     }
 
+
+    // Return Item Data Array Count.
     @Override
     public int getItemCount() {
-        return 0;
+        return itemData.length;
     }
 
-    public static class ViewHolder extends RecyclerView.ViewHolder{
 
-        public TextView versionNameTextView;
+    // Create View HOlder Extends from RecyclerView View Holder Class
+    public class ViewHolder extends RecyclerView.ViewHolder{
 
+        // Create TextView Type Object.
+        public TextView nameTextView;
+
+        // View Holder class Constructor
         public ViewHolder(View itemView) {
             super(itemView);
-
-            versionNameTextView = (TextView) itemView.findViewById(R.id.versionNameTextView);
-
+            // TypeCast as Java Object TextView From version_row.xml
+            nameTextView = itemView.findViewById(R.id.versionNameTextView);
         }
     }
 }
